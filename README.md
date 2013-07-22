@@ -2,7 +2,7 @@
 
 A pagination module forn angular.
 
-Requires [node](http://nodejs.org/) and [grunt](http://gruntjs.com/) (`npm i -g grunt-cli`) and [bower]('npm install -g bower').
+Requires [node](http://nodejs.org/) and [grunt](http://gruntjs.com/) (`npm i -g grunt-cli`) and [bower](http://bower.io/) (`npm install -g bower`).
 
 ### Speedstart
 
