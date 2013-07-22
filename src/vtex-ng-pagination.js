@@ -9,7 +9,7 @@ mod.directive("pagination", function(){
        totalCount: "=total",
        totalPages: "=pages"
      },
-     templateUrl: 'modules/vtex-ng-pagination/vtex-ng-pagination.html',
+     templateUrl: 'modules/vtex-ng-pagination.html',
      link: function ($scope) {
        var callback = $scope.callback();
        $scope.actions = {};
@@ -80,13 +80,13 @@ mod.directive("pagination", function(){
              sortType: $scope.sortType
            };
            callback(obj_callback);
-           $('.pagination input').trigger('blur');
+           $(".pagination input").trigger('blur');
          }
        };
 
        // VIEW ACTIONS
        $scope.actions.addHtmlListeners = function(){
-         $('.pagination input')
+         $(".pagination input")
            .off('mouseover mouseout blur')
            .on('mouseover', function() {
              $(this).tooltip({'trigger': 'manual'});
