@@ -7,6 +7,6 @@
 		"build/vtex-ng-pagination.html"
 	],
 	"dependencies": {
-		"bootstrap": "latest"
+		"bootstrap": "2.3.2"
 	}
 }
