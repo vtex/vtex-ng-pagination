@@ -66,7 +66,7 @@ module.exports = (grunt) ->
 	grunt.registerTask 'default', ['dev-watch']
 
 	# Dev
-	grunt.registerTask 'dev', ['clean', 'copy:main', 'coffee']
+	grunt.registerTask 'dev', ['clean', 'copy:main']
 	grunt.registerTask 'dev-watch', ['dev', 'watch:dev']
 
 	# Test

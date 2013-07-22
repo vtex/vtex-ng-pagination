@@ -1,10 +1,8 @@
 # Vtex Ng Pagination
 
-A grunt coffee/less/live-reload/cssmin/uglify/connect/bootstrap/zepto/lodash boilerplate.
+A pagination module forn angular.
 
-Check out the [live demo](http://vtex.github.io/speedbag)
-
-Requires [node](http://nodejs.org/) and [grunt](http://gruntjs.com/) (`npm i -g grunt-cli`).
+Requires [node](http://nodejs.org/) and [grunt](http://gruntjs.com/) (`npm i -g grunt-cli`) and [bower]('npm install -g bower').
 
 ### Speedstart
 
