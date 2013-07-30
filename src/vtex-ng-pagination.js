@@ -42,6 +42,7 @@ mod.directive("pagination", function(){
          $scope.verifyBtns(newValue);
        });
 
+			 /** This function enable or disable the pagination buttons. */
        $scope.verifyBtns = function(newValue){
          if (newValue > 1 && newValue <= $scope.totalPages){
            $scope.disablePrevious = "";
@@ -56,7 +57,7 @@ mod.directive("pagination", function(){
          }
        };
 
-       // UI ACTIONS
+			 /** This function is called every time user wants to change page. */
        $scope.changePage = function(direction){
          if ((direction === "next") && ($scope.currentPage < $scope.totalPages)){
            $scope.currentPage = Number($scope.currentPage)+1;
@@ -65,6 +66,7 @@ mod.directive("pagination", function(){
          }
        };
 
+			 /** This function is called when user changes the number of items per page. */
        $scope.setNumItemsPerPage = function(num){
          $scope.numItemsPerPage = num;
          $scope.currentPage = 1;
@@ -84,7 +86,7 @@ mod.directive("pagination", function(){
          }
        };
 
-       // VIEW ACTIONS
+			 /** Adds Jquery listeners to DOM elements. */
        $scope.actions.addHtmlListeners = function(){
          $(".pagination input")
            .off('mouseover mouseout blur')
