@@ -1,7 +1,8 @@
 var mod, CONFIG;
-mod = angular.module('vtex-ng-pagination', []);
+mod = angular.module('vtexNgPagination', []);
 
 CONFIG = {};
+CONFIG.path = "";
 
 mod.directive("pagination", function(){
 	return {
@@ -109,13 +110,13 @@ mod.directive("pagination", function(){
 	}
 });
 
-mod.provider('vtex-ng-pagination', function(){
-	return {
+mod.provider('vtexNgPagination',
+	{
 		config: function(parameters){
-			 CONFIG.path = parameters.path;
+			CONFIG.path = parameters.path;
 		},
 		$get: function(paginate){
 			return paginate;
 		}
 	}
-});
+);
