@@ -11,7 +11,7 @@ mod.directive("pagination", function(){
 			totalCount: "=total",
 			totalPages: "=pages"
 		},
-		templateUrl: 'modules/vtex-ng-pagination.html',
+		templateUrl: CONFIG.path ? CONFIG.path : "modules/vtex-ng-pagination.html",
 		link: function ($scope) {
 			var callback = $scope.callback();
 			$scope.actions = {};
@@ -111,6 +111,9 @@ mod.directive("pagination", function(){
 
 mod.provider('vtex-ng-pagination', function(){
 	return {
+		config: function(parameters){
+			 CONFIG.path = parameters.path;
+		},
 		$get: function(paginate){
 			return paginate;
 		}
