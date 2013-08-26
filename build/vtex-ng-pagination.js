@@ -3,6 +3,7 @@ mod = angular.module('vtexNgPagination', []);
 
 CONFIG = {};
 CONFIG.path = "";
+CONFIG.hidePagination = true;
 
 mod.directive("pagination", function(){
 	return {
@@ -20,6 +21,9 @@ mod.directive("pagination", function(){
 			// ORDER
 			$scope.sort = 'name';
 			$scope.sortType = 'ASC';
+
+			// CONTROL IF HIDES ON SMALL LISTS
+			$scope.hidePagination = CONFIG.hidePagination;
 
 			// DISBALED BTS
 			$scope.disablePrevious = "disabled";
@@ -114,6 +118,7 @@ mod.provider('vtexNgPagination',
 	{
 		config: function(parameters){
 			CONFIG.path = parameters.path;
+			CONFIG.hidePagination = parameters.hidePagination;
 		},
 		$get: function(paginate){
 			return paginate;
