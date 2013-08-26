@@ -1,4 +1,4 @@
-<div class="list-control list-control-bottom pull-right" ng-show="totalCount > 15 && hidePagination || hidePagination">
+<div class="list-control list-control-bottom pull-right" ng-show="!hidePagination && !hidePagination || (totalCount > 15)">
   <ul class="nav nav-pills pull-left">
     <li class="padding muted">
       Itens: <strong>{{totalCount}}</strong>
