@@ -11,7 +11,8 @@ mod.directive("pagination", function(){
 		scope:{
 			callback: "&callback",
 			totalCount: "=total",
-			totalPages: "=pages"
+			totalPages: "=pages",
+			outerCurrentPage: "=page"
 		},
 		templateUrl: CONFIG.path ? CONFIG.path + "/vtex-ng-pagination.html" : "modules/vtex-ng-pagination.html",
 		link: function ($scope) {
@@ -47,6 +48,12 @@ mod.directive("pagination", function(){
 					$scope.currentPage = $scope.totalPages ? $scope.totalPages : 1;
 				}
 				$scope.verifyBtns(newValue);
+			});
+
+			// LISTEN TO CHANGES ON CURRENT PAGE OUTSIDES DIRECTIVE
+			$scope.$watch('outerCurrentPage', function(newValue){
+				if (newValue != $scope.currentPage && newValue != undefined && newValue != null)
+					$scope.currentPage = newValue;
 			});
 
 			$scope.verifyBtns = function(newValue){
