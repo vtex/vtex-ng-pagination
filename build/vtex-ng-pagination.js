@@ -87,6 +87,17 @@ mod.directive("vtPagination", function(){
 					.on('blur', function() {
 						$(this).tooltip('hide');
 					});
+
+				// EXIBE NUMERO DE ITENS PARA CIMA NA PAGINACAO DO RODAPE
+				var $dropdownToogle = $('.list-control').last().find(".dropdown-toggle");
+				var offSetPaginationBottom = $dropdownToogle.offset();
+				if (($("html").height() - offSetPaginationBottom.top) <= 200){
+					$dropdownToogle
+						.parent()
+						.removeClass("dropdown")
+						.addClass("dropup");
+				}
+
 			};
 
 			$scope.actions.addHtmlListeners();
