@@ -18,10 +18,6 @@ mod.directive("vtPagination", function(){
 		link: function ($scope) {
 			$scope.actions = {};
 
-			// ORDER
-			$scope.sort = 'name';
-			$scope.sortType = 'ASC';
-
 			// CONTROL IF HIDES ON SMALL LISTS
 			$scope.hidePagination = CONFIG.hidePagination;
 

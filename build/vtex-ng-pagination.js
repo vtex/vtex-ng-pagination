@@ -62,12 +62,12 @@ mod.directive("vtPagination", function(){
 				if ((direction === "next") && ($scope.currentPage < $scope.pageCount)){
 					$scope.currentPage = Math.ceil(Number($scope.currentPage))+1;
 				} else if ((direction === "prev") && ($scope.currentPage > 1) && ($scope.currentPage <= $scope.pageCount)){
-					$scope.currentPage = Number($scope.currentPage) - 1;
+					$scope.currentPage = Math.ceil(Number($scope.currentPage)) - 1;
 				}
 			};
 
 			$scope.setNumItemsPerPage = function(num){
-				$scope.numItemsPerPage = num;
+				$scope.perPage = num;
 				$scope.currentPage = 1;
 			};
 
