@@ -16,18 +16,18 @@ mod.directive("vtPagination", function(){
 		},
 		templateUrl: CONFIG.path ? CONFIG.path + "/vtex-ng-pagination.html" : "modules/vtex-ng-pagination.html",
 		link: function ($scope) {
-			$scope.actions = {};
 
 			// CONTROL IF HIDES ON SMALL LISTS
 			$scope.hidePagination = CONFIG.hidePagination;
 
-			// DISBALED BTS
+			// DISBALED BTS CONTROLS
 			$scope.disablePrevious = "disabled";
 			$scope.disableNext = "";
 
 			// DEFAULTS
 			$scope.perPage = $scope.perPage || 15;
 			$scope.currentPage = $scope.currentPage || 1;
+			$scope.currentPageDisplay = $scope.currentPage || 1;
 
 			// COMPUTED OBSERVABLES
 			$scope.$watch('pageCount', function(){
@@ -35,29 +35,37 @@ mod.directive("vtPagination", function(){
 			});
 
 			$scope.$watch('currentPage', function(newValue){
-				if (newValue && (newValue <= 0)){
-					$scope.currentPage = 1;
-				} else if (newValue && (newValue > $scope.pageCount)){
-					$scope.currentPage = $scope.pageCount ? $scope.pageCount : 1;
-				}
-				$scope.verifyBtns(newValue);
+				$scope.setCurrentPage(newValue);
 			});
 
-			$scope.verifyBtns = function(newValue){
-				if (newValue > 1 && newValue <= $scope.pageCount){
-					$scope.disablePrevious = "";
+			$scope.setCurrentPage = function(newValue){
+				if (newValue && (newValue <= 0)){
+					$scope.currentPageDisplay = $scope.currentPage = 1;
+				} else if (newValue && (newValue > $scope.pageCount)){
+					$scope.currentPageDisplay = $scope.currentPage = $scope.pageCount ? $scope.pageCount : 1;
 				} else {
-					$scope.disablePrevious = "disabled";
+					$scope.currentPageDisplay = $scope.currentPage = newValue;
 				}
+				$scope.verifyBtns($scope.currentPageDisplay);
+			};
 
-				if (newValue < $scope.pageCount){
-					$scope.disableNext = "";
-				} else {
-					$scope.disableNext = "disabled";
+			$scope.pageInputBlur = function(evt){
+				$(".pagination input").tooltip('hide');
+				$scope.setCurrentPage(Number(evt.target.value));
+			};
+
+			$scope.pageInputKeyPress = function(evt){
+				if (!evt.altKey && evt.charCode == 13){
+					$(".pagination input").tooltip('hide');
+					$scope.setCurrentPage(Number(evt.target.value));
 				}
 			};
 
-			// UI ACTIONS
+			$scope.verifyBtns = function(newValue){
+				$scope.disablePrevious = (newValue > 1 && newValue <= $scope.pageCount) ? "" : "disabled";
+				$scope.disableNext = (newValue < $scope.pageCount) ? "" : "disabled";
+			};
+
 			$scope.changePage = function(direction){
 				if ((direction === "next") && ($scope.currentPage < $scope.pageCount)){
 					$scope.currentPage = Math.ceil(Number($scope.currentPage))+1;
@@ -68,13 +76,12 @@ mod.directive("vtPagination", function(){
 
 			$scope.setNumItemsPerPage = function(num){
 				$scope.perPage = num;
-				$scope.currentPage = 1;
+				$scope.currentPageDisplay = $scope.currentPage = 1;
 			};
 
-			// VIEW ACTIONS
-			$scope.actions.addHtmlListeners = function(){
+			$scope.addHtmlListeners = function(){
 				$(".pagination input")
-					.off('mouseover mouseout blur')
+					.off('mouseover mouseout')
 					.on('mouseover', function() {
 						$(this).tooltip({'trigger': 'manual'});
 						$(this).tooltip('show');
@@ -83,24 +90,22 @@ mod.directive("vtPagination", function(){
 						if (!$(this).is(':focus')) {
 							$(this).tooltip('hide');
 						}
-					})
-					.on('blur', function() {
-						$(this).tooltip('hide');
 					});
 
 				// EXIBE NUMERO DE ITENS PARA CIMA NA PAGINACAO DO RODAPE
-				var $dropdownToogle = $('.list-control').last().find(".dropdown-toggle");
-				var offSetPaginationBottom = $dropdownToogle.offset();
-				if (($("html").height() - offSetPaginationBottom.top) <= 200){
-					$dropdownToogle
-						.parent()
-						.removeClass("dropdown")
-						.addClass("dropup");
-				}
-
+				$("html").on("click", ".dropdown-toggle", function(){
+					var $dropdownToogle = $('.list-control').last().find(".dropdown-toggle");
+					var offSetPaginationBottom = $dropdownToogle.offset();
+					if (($("html").height() - offSetPaginationBottom.top) <= 200){
+						$dropdownToogle
+							.parent()
+							.removeClass("dropdown")
+							.addClass("dropup");
+					}
+				});
 			};
 
-			$scope.actions.addHtmlListeners();
+			$scope.addHtmlListeners();
 		}
 	}
 });
