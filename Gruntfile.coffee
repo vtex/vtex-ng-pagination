@@ -1,7 +1,5 @@
-path = require('path')
-fs = require('fs')
-
 module.exports = (grunt) ->
+	pkg = grunt.file.readJSON('package.json')
 
 	# Project configuration.
 	grunt.initConfig
@@ -17,61 +15,23 @@ module.exports = (grunt) ->
 				src: ['**', '!coffee/**', '!**/*.less']
 				dest: 'build/<%= relativePath %>'
 
-		coffee:
-			main:
-				expand: true
-				cwd: 'src/coffee'
-				src: ['**/*.coffee']
-				dest: 'build/<%= relativePath %>/js/'
-				ext: '.js'
-
-			test:
-				expand: true
-				cwd: 'spec/'
-				src: ['**/*.coffee']
-				dest: 'build/<%= relativePath %>/spec/'
-				ext: '.js'
-
-		less:
+		uglify:
 			main:
 				files:
-					'build/<%= relativePath %>/style/main.css': 'src/style/main.less'
+					'build/<%= relativePath %>/vtex-ng-pagination-with-template.min.js':
+						['build/vtex-ng-pagination.js', 'build/vtex-ng-pagination-template.js']
+				options:
+					mangle: false
 
-		karma:
-			options:
-				configFile: 'karma.conf.js'
-			unit:
-				background: true
-			deploy:
-				singleRun: true
+		ngtemplates:
+			app:
+				cwd: 'src/'
+				src: '*.html'
+				dest: 'build/<%= relativePath %>/vtex-ng-pagination-template.js'
+				options:
+					bootstrap:  (module, script) ->
+						'angular.module("vtexNgPagination").run(function($templateCache) { ' + script + ' });'
 
-		watch:
-			options:
-				livereload: true
-			dev:
-				files: ['src/**/*.html', 'src/**/*.coffee', 'src/**/*.js']
-				tasks: ['dev']
+	grunt.loadNpmTasks name for name of pkg.dependencies when name[0..5] is 'grunt-'
 
-
-	grunt.loadNpmTasks 'grunt-contrib-concat'
-	grunt.loadNpmTasks 'grunt-contrib-copy'
-	grunt.loadNpmTasks 'grunt-contrib-clean'
-	grunt.loadNpmTasks 'grunt-contrib-coffee'
-	grunt.loadNpmTasks 'grunt-contrib-less'
-	grunt.loadNpmTasks 'grunt-contrib-uglify'
-	grunt.loadNpmTasks 'grunt-contrib-cssmin'
-	grunt.loadNpmTasks 'grunt-contrib-watch'
-	grunt.loadNpmTasks 'grunt-karma'
-
-	grunt.registerTask 'default', ['dev-watch']
-
-	# Dev
-	grunt.registerTask 'dev', ['clean', 'copy:main']
-	grunt.registerTask 'dev-watch', ['dev', 'watch:dev']
-
-	# Test
-	grunt.registerTask 'test', ['dev', 'karma:deploy']
-	grunt.registerTask 'test-watch', ['dev', 'karma:unit', 'watch:test']
-	
-	# TDD
-	grunt.registerTask 'tdd', ['dev', 'connect', 'karma:unit', 'remote', 'watch:test']
+	grunt.registerTask 'default', ['copy', 'ngtemplates', 'uglify']

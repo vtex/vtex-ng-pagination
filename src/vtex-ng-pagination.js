@@ -14,7 +14,7 @@ mod.directive("vtPagination", function(){
 			currentPage: "=currentPage",
 			perPage: "=perPage"
 		},
-		templateUrl: CONFIG.path ? CONFIG.path + "/vtex-ng-pagination.html" : "modules/vtex-ng-pagination.html",
+		templateUrl: CONFIG.path ? CONFIG.path + "/vtex-ng-pagination.html" : "vtex-ng-pagination.html",
 		link: function ($scope) {
 
 			// CONTROL IF HIDES ON SMALL LISTS
