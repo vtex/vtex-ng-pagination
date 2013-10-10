@@ -35,7 +35,8 @@ mod.directive("vtPagination", function(){
 			});
 
 			$scope.$watch('currentPage', function(newValue){
-				$scope.setCurrentPage(newValue);
+				if (newValue != $scope.currentPage)
+					$scope.setCurrentPage(newValue);
 			});
 
 			$scope.setCurrentPage = function(newValue){
@@ -43,20 +44,20 @@ mod.directive("vtPagination", function(){
 					$scope.currentPageDisplay = $scope.currentPage = 1;
 				} else if (newValue && (newValue > $scope.pageCount)){
 					$scope.currentPageDisplay = $scope.currentPage = $scope.pageCount ? $scope.pageCount : 1;
-				} else {
+				} else if (newValue != $scope.currentPage) {
 					$scope.currentPageDisplay = $scope.currentPage = newValue;
 				}
+				$(".pagination input").tooltip('hide');
 				$scope.verifyBtns($scope.currentPageDisplay);
 			};
 
 			$scope.pageInputBlur = function(evt){
-				$(".pagination input").tooltip('hide');
 				$scope.setCurrentPage(Number(evt.target.value));
 			};
 
 			$scope.pageInputKeyPress = function(evt){
 				if (!evt.altKey && evt.charCode == 13){
-					$(".pagination input").tooltip('hide');
+					$(".pagination input").off('blur').blur().on('blur', $scope.setCurrentPage);
 					$scope.setCurrentPage(Number(evt.target.value));
 				}
 			};
