@@ -40,15 +40,12 @@ mod.directive("vtPagination", function(){
 			});
 
 			$scope.setCurrentPage = function(newValue){
-				console.log("$scope.setCurrentPage");
 				if (newValue && (newValue <= 0)){
 					$scope.currentPageDisplay = $scope.currentPage = 1;
 				} else if (newValue && (newValue > $scope.pageCount)){
 					$scope.currentPageDisplay = $scope.currentPage = $scope.pageCount ? $scope.pageCount : 1;
 				} else if (newValue != $scope.currentPage) {
 					$scope.currentPageDisplay = $scope.currentPage = newValue;
-				} else {
-					$scope.currentPageDisplay = $scope.currentPage;
 				}
 				$(".pagination input").tooltip('hide');
 				$scope.verifyBtns($scope.currentPageDisplay);
