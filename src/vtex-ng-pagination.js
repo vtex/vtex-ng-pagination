@@ -40,12 +40,14 @@ mod.directive("vtPagination", function(){
 			});
 
 			$scope.setCurrentPage = function(newValue){
-				if (newValue && (newValue <= 0)){
-					$scope.currentPage = 1;
-				} else if (newValue && (newValue > $scope.pageCount)){
-					$scope.currentPage = $scope.pageCount ? $scope.pageCount : 1;
-				} else if (newValue != $scope.currentPage) {
-					$scope.currentPage = newValue;
+				if (!isNaN(newValue)){
+					if (newValue && (newValue <= 0)){
+						$scope.currentPage = 1;
+					} else if (newValue && (newValue > $scope.pageCount)){
+						$scope.currentPage = $scope.pageCount ? $scope.pageCount : 1;
+					} else if (newValue != $scope.currentPage) {
+						$scope.currentPage = newValue;
+					}
 				}
 				$scope.currentPageDisplay = $scope.currentPage;
 				$(".pagination input").tooltip('hide');
@@ -56,8 +58,8 @@ mod.directive("vtPagination", function(){
 			};
 
 			$scope.pageInputKeyPress = function(evt){
-				if (!evt.altKey && evt.charCode == 13){
-					$(".pagination input").off('blur').blur().on('blur', $scope.setCurrentPage);
+				if (evt.charCode == 13){
+					$(".pagination input").off('blur').blur().on('blur', function(evt){ $scope.pageInputBlur(evt); $scope.$digest(); });
 					$scope.setCurrentPage(Number(evt.target.value));
 				}
 			};
