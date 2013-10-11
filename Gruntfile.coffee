@@ -13,13 +13,13 @@ module.exports = (grunt) ->
 				expand: true
 				cwd: 'src/'
 				src: ['**', '!coffee/**', '!**/*.less']
-				dest: 'build/<%= relativePath %>'
+				dest: 'dist/<%= relativePath %>'
 
 		uglify:
 			main:
 				files:
 					'build/<%= relativePath %>/vtex-ng-pagination-with-template.min.js':
-						['build/vtex-ng-pagination.js', 'build/vtex-ng-pagination-template.js']
+						['dist/vtex-ng-pagination.js', 'dist/vtex-ng-pagination-template.js']
 				options:
 					mangle: false
 
@@ -27,7 +27,7 @@ module.exports = (grunt) ->
 			app:
 				cwd: 'src/'
 				src: '*.html'
-				dest: 'build/<%= relativePath %>/vtex-ng-pagination-template.js'
+				dest: 'dist/<%= relativePath %>/vtex-ng-pagination-template.js'
 				options:
 					bootstrap:  (module, script) ->
 						'angular.module("vtexNgPagination").run(function($templateCache) { ' + script + ' });'
