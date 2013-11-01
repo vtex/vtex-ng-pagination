@@ -5,14 +5,15 @@ CONFIG = {};
 CONFIG.path = "";
 CONFIG.hidePagination = true;
 
-mod.directive("vtPagination", function(){
+mod.directive("vtPagination", function($location){
 	return {
 		restrict: "E",
 		scope:{
 			itemCount: "=itemCount",
 			pageCount: "=pageCount",
 			currentPage: "=currentPage",
-			perPage: "=perPage"
+			perPage: "=perPage",
+			useSearch: "=search"
 		},
 		templateUrl: CONFIG.path ? CONFIG.path + "/vtex-ng-pagination.html" : "vtex-ng-pagination.html",
 		link: function ($scope) {
@@ -20,7 +21,7 @@ mod.directive("vtPagination", function(){
 			// CONTROL IF HIDES ON SMALL LISTS
 			$scope.hidePagination = CONFIG.hidePagination;
 
-			// DISBALED BTS CONTROLS
+			// DISABLED BTS CONTROLS
 			$scope.disablePrevious = "disabled";
 			$scope.disableNext = "";
 
@@ -47,6 +48,10 @@ mod.directive("vtPagination", function(){
 						$scope.currentPage = $scope.pageCount ? $scope.pageCount : 1;
 					} else if (newValue != $scope.currentPage) {
 						$scope.currentPage = newValue;
+					}
+
+					if ($scope.useSearch) {
+						$location.search('page', $scope.currentPage);
 					}
 				}
 				$scope.currentPageDisplay = $scope.currentPage;
@@ -75,11 +80,19 @@ mod.directive("vtPagination", function(){
 				} else if ((direction === "prev") && ($scope.currentPage > 1) && ($scope.currentPage <= $scope.pageCount)){
 					$scope.currentPage = Math.ceil(Number($scope.currentPage)) - 1;
 				}
+
+				if ($scope.useSearch) {
+					$location.search('page', $scope.currentPage);
+				}
 			};
 
 			$scope.setNumItemsPerPage = function(num){
 				$scope.perPage = num;
 				$scope.currentPageDisplay = $scope.currentPage = 1;
+				if ($scope.useSearch) {
+					$location.search('per_page', $scope.perPage);
+					$location.search('page', 1);
+				}
 			};
 
 			$scope.addHtmlListeners = function(){
