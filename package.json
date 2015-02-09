@@ -1,28 +1,29 @@
 {
-	"name": "vtex-ng-pagination",
-	"version": "1.0.0",
-	"readmeFilename": "README.md",
-	"description": "Ng Pagination",
-	"main": "index.html",
-	"dependencies": {
-		"grunt": "~0.4.1",
-		"grunt-contrib-clean": "~0.4.0",
-		"grunt-contrib-copy": "~0.4.1",
-		"grunt-contrib-cssmin": "~0.5.0",
-		"grunt-contrib-uglify": "~0.2.0",
-        "grunt-contrib-watch": "*",
-		"grunt-angular-templates": "~0.4.2"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/vtex/speedbag.git"
-	},
-	"keywords": [
-		"grunt",
-		"coffee",
-		"less",
-		"livereload"
-	],
-	"author": "Guilherme Rodrigues <gadr90@gmail.com>",
-	"license": "MIT"
+  "name": "vtex-ng-pagination",
+  "version": "1.0.0",
+  "readmeFilename": "README.md",
+  "description": "Bootstrap Pagination plugin for AngularJS",
+  "main": "index.html",
+  "dependencies": {
+    "grunt": "~0.4.1",
+    "grunt-angular-templates": "^0.5.7",
+    "grunt-contrib-clean": "^0.4.1",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-cssmin": "^0.12.1",
+    "grunt-contrib-less": "^1.0.0",
+    "grunt-contrib-uglify": "^0.7.0",
+    "grunt-contrib-watch": "^0.6.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/vtex/ng-pagination"
+  },
+  "keywords": [
+    "grunt",
+    "coffee",
+    "less",
+    "livereload"
+  ],
+  "author": "Guilherme Rodrigues <gadr90@gmail.com>",
+  "license": "MIT"
 }

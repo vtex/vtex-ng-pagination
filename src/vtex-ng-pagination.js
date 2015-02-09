@@ -1,11 +1,11 @@
 var mod, CONFIG;
-mod = angular.module('vtexNgPagination', []);
+mod = angular.module('vtex.ngPagination', []);
 
 CONFIG = {};
 CONFIG.path = "";
 CONFIG.hidePagination = true;
 
-mod.directive("vtPagination", function($location){
+mod.directive("vtPagination", function($location) {
 	return {
 		restrict: "E",
 		scope:{
@@ -30,21 +30,28 @@ mod.directive("vtPagination", function($location){
 			$scope.currentPage = $scope.currentPage || 1;
 			$scope.currentPageDisplay = $scope.currentPage || 1;
 
+			$scope.perPageOptions = [
+				{ index: 1, num: 15 },  // These are objects because angular might explode
+				{ index: 2, num: 30 },  // when passing a simple array to ng-repeat
+				{ index: 3, num: 50 },
+				{ index: 4, num: 100 }
+			];
+
 			// COMPUTED OBSERVABLES
-			$scope.$watch('pageCount', function(){
+			$scope.$watch('pageCount', function() {
 				$scope.verifyBtns($scope.currentPage);
 			});
 
-			$scope.$watch('currentPage', function(newValue){
+			$scope.$watch('currentPage', function(newValue) {
 				$scope.currentPageDisplay = newValue;
 				$scope.verifyBtns($scope.currentPageDisplay);
 			});
 
-			$scope.setCurrentPage = function(newValue){
-				if (!isNaN(newValue)){
+			$scope.setCurrentPage = function(newValue) {
+				if (!isNaN(newValue)) {
 					if (newValue && (newValue <= 0)){
 						$scope.currentPage = 1;
-					} else if (newValue && (newValue > $scope.pageCount)){
+					} else if (newValue && (newValue > $scope.pageCount)) {
 						$scope.currentPage = $scope.pageCount ? $scope.pageCount : 1;
 					} else if (newValue != $scope.currentPage) {
 						$scope.currentPage = newValue;
@@ -58,26 +65,29 @@ mod.directive("vtPagination", function($location){
 				$(".pagination input").tooltip('hide');
 			};
 
-			$scope.pageInputBlur = function(evt){
+			$scope.pageInputBlur = function(evt) {
 				$scope.setCurrentPage(Number(evt.target.value));
 			};
 
-			$scope.pageInputKeyPress = function(evt){
-				if (evt.charCode == 13){
-					$(".pagination input").off('blur').blur().on('blur', function(evt){ $scope.pageInputBlur(evt); $scope.$digest(); });
+			$scope.pageInputKeyPress = function(evt) {
+				if (evt.charCode == 13) {
+					$(".pagination input").off('blur').blur().on('blur', function(evt) {
+						$scope.pageInputBlur(evt);
+						$scope.$digest();
+					});
 					$scope.setCurrentPage(Number(evt.target.value));
 				}
 			};
 
-			$scope.verifyBtns = function(newValue){
+			$scope.verifyBtns = function(newValue) {
 				$scope.disablePrevious = (newValue > 1 && newValue <= $scope.pageCount) ? "" : "disabled";
 				$scope.disableNext = (newValue < $scope.pageCount) ? "" : "disabled";
 			};
 
-			$scope.changePage = function(direction){
-				if ((direction === "next") && ($scope.currentPage < $scope.pageCount)){
-					$scope.currentPage = Math.ceil(Number($scope.currentPage))+1;
-				} else if ((direction === "prev") && ($scope.currentPage > 1) && ($scope.currentPage <= $scope.pageCount)){
+			$scope.changePage = function(direction) {
+				if ((direction === "next") && ($scope.currentPage < $scope.pageCount)) {
+					$scope.currentPage = Math.ceil(Number($scope.currentPage)) + 1;
+				} else if ((direction === "prev") && ($scope.currentPage > 1) && ($scope.currentPage <= $scope.pageCount)) {
 					$scope.currentPage = Math.ceil(Number($scope.currentPage)) - 1;
 				}
 
@@ -86,7 +96,7 @@ mod.directive("vtPagination", function($location){
 				}
 			};
 
-			$scope.setNumItemsPerPage = function(num){
+			$scope.setNumItemsPerPage = function(num) {
 				$scope.perPage = num;
 				$scope.currentPageDisplay = $scope.currentPage = 1;
 				if ($scope.useSearch) {
@@ -95,7 +105,7 @@ mod.directive("vtPagination", function($location){
 				}
 			};
 
-			$scope.addHtmlListeners = function(){
+			$scope.addHtmlListeners = function() {
 				$(".pagination input")
 					.off('mouseover mouseout')
 					.on('mouseover', function() {
@@ -109,10 +119,10 @@ mod.directive("vtPagination", function($location){
 					});
 
 				// EXIBE NUMERO DE ITENS PARA CIMA NA PAGINACAO DO RODAPE
-				$("html").on("click", ".dropdown-toggle", function(){
+				$("html").on("click", ".dropdown-toggle", function() {
 					var $dropdownToogle = $('.list-control').last().find(".dropdown-toggle");
 					var offSetPaginationBottom = $dropdownToogle.offset();
-					if (($("html").height() - offSetPaginationBottom.top) <= 200){
+					if (($("html").height() - offSetPaginationBottom.top) <= 200) {
 						$dropdownToogle
 							.parent()
 							.removeClass("dropdown")
@@ -128,11 +138,11 @@ mod.directive("vtPagination", function($location){
 
 mod.provider('vtexNgPagination',
 	{
-		config: function(parameters){
+		config: function(parameters) {
 			CONFIG.path = parameters.path;
 			CONFIG.hidePagination = parameters.hidePagination;
 		},
-		$get: function(paginate){
+		$get: function(paginate) {
 			return paginate;
 		}
 	}
