@@ -49,6 +49,8 @@ module.exports = (grunt) ->
 				cwd: 'src/'
 				src: '**/**.html'
 				dest: 'build/vtex-ng-pagination-template.js'
+				options:
+					module: 'vtex.ngPagination'
 
 		watch:
 			oms:
