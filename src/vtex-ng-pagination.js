@@ -1,5 +1,5 @@
 angular.module('vtex.ngPagination', [])
-	.directive("vtPagination", function($location) {
+	.directive("vtPagination", ['$location', function($location) {
 		return {
 			restrict: "E",
 			scope: {
@@ -115,4 +115,4 @@ angular.module('vtex.ngPagination', [])
 				$scope.addHtmlListeners();
 			}
 		}
-	});
+	}]);

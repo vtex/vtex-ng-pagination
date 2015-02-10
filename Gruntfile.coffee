@@ -47,11 +47,8 @@ module.exports = (grunt) ->
 		ngtemplates:
 			app:
 				cwd: 'src/'
-				src: '*.html'
+				src: '**/**.html'
 				dest: 'build/vtex-ng-pagination-template.js'
-				options:
-					bootstrap:  (module, script) ->
-						'angular.module("vtex.ngPagination").run(function($templateCache) { ' + script + ' });'
 
 		watch:
 			oms:
