@@ -11,8 +11,8 @@ module.exports = (grunt) ->
 				src: ['**', '!**/*.less', '!**/*.html']
 				dest: 'build/'
 			oms:
-				cwd: 'build/'
-				src: ['vtex-ng-pagination.js', 'vtex-ng-pagination-template.js', 'vtex-ng-pagination.css']
+				cwd: 'dist/'
+				src: ['vtex-ng-pagination.min.js', 'vtex-ng-pagination.min.css']
 				dest: '../vcs.order-management-ui/src/lib/vtex-ng-pagination/'
 				expand: true
 
