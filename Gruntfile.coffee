@@ -61,4 +61,4 @@ module.exports = (grunt) ->
 	grunt.loadNpmTasks name for name of pkg.dependencies when name[0..5] is 'grunt-'
 
 	grunt.registerTask 'default', ['clean', 'copy:main', 'ngtemplates', 'less', 'uglify', 'cssmin']
-	grunt.registerTask 'oms', ['default', 'watch:oms']
+	grunt.registerTask 'oms', ['default', 'copy:oms', 'watch:oms']

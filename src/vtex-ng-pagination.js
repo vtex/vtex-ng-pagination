@@ -1,31 +1,22 @@
-var mod, CONFIG;
-mod = angular.module('vtex.ngPagination', []);
-
-CONFIG = {};
-CONFIG.path = "";
-CONFIG.hidePagination = true;
-
-mod.directive("vtPagination", function($location) {
+angular.module('vtex.ngPagination', [])
+.directive("vtPagination", function($location) {
 	return {
 		restrict: "E",
-		scope:{
+		scope: {
 			itemCount: "=itemCount",
 			pageCount: "=pageCount",
 			currentPage: "=currentPage",
 			perPage: "=perPage",
 			useSearch: "=search"
 		},
-		templateUrl: CONFIG.path ? CONFIG.path + "/vtex-ng-pagination.html" : "vtex-ng-pagination.html",
+		templateUrl: "vtex-ng-pagination.html",
 		link: function ($scope) {
 
-			// CONTROL IF HIDES ON SMALL LISTS
-			$scope.hidePagination = CONFIG.hidePagination;
-
-			// DISABLED BTS CONTROLS
+			// Disable buttons control
 			$scope.disablePrevious = "disabled";
 			$scope.disableNext = "";
 
-			// DEFAULTS
+			// Defaults
 			$scope.perPage = $scope.perPage || 15;
 			$scope.currentPage = $scope.currentPage || 1;
 			$scope.currentPageDisplay = $scope.currentPage || 1;
@@ -37,7 +28,7 @@ mod.directive("vtPagination", function($location) {
 				{ index: 4, num: 100 }
 			];
 
-			// COMPUTED OBSERVABLES
+			// Watchers
 			$scope.$watch('pageCount', function() {
 				$scope.verifyBtns($scope.currentPage);
 			});
@@ -47,6 +38,7 @@ mod.directive("vtPagination", function($location) {
 				$scope.verifyBtns($scope.currentPageDisplay);
 			});
 
+			// Methods on scope
 			$scope.setCurrentPage = function(newValue) {
 				if (!isNaN(newValue)) {
 					if (newValue && (newValue <= 0)){
@@ -62,7 +54,6 @@ mod.directive("vtPagination", function($location) {
 					}
 				}
 				$scope.currentPageDisplay = $scope.currentPage;
-				$(".pagination input").tooltip('hide');
 			};
 
 			$scope.pageInputBlur = function(evt) {
@@ -106,19 +97,7 @@ mod.directive("vtPagination", function($location) {
 			};
 
 			$scope.addHtmlListeners = function() {
-				$(".pagination input")
-					.off('mouseover mouseout')
-					.on('mouseover', function() {
-						$(this).tooltip({'trigger': 'manual'});
-						$(this).tooltip('show');
-					})
-					.on('mouseout', function() {
-						if (!$(this).is(':focus')) {
-							$(this).tooltip('hide');
-						}
-					});
-
-				// EXIBE NUMERO DE ITENS PARA CIMA NA PAGINACAO DO RODAPE
+				/* Changes y-orientation of perPage options if on bottom */
 				$("html").on("click", ".dropdown-toggle", function() {
 					var $dropdownToogle = $('.list-control').last().find(".dropdown-toggle");
 					var offSetPaginationBottom = $dropdownToogle.offset();
@@ -135,15 +114,3 @@ mod.directive("vtPagination", function($location) {
 		}
 	}
 });
-
-mod.provider('vtexNgPagination',
-	{
-		config: function(parameters) {
-			CONFIG.path = parameters.path;
-			CONFIG.hidePagination = parameters.hidePagination;
-		},
-		$get: function(paginate) {
-			return paginate;
-		}
-	}
-);
