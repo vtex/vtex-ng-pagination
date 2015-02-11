@@ -1,5 +1,5 @@
 module.exports = (grunt) ->
-	pkg = grunt.file.readJSON('package.json')
+	pkg = grunt.file.readJSON 'package.json'
 
 	grunt.initConfig
 		clean: ['build', 'dist']
@@ -56,8 +56,22 @@ module.exports = (grunt) ->
 			oms:
 				files: ['src/**']
 				tasks: ['default', 'copy:oms']
+			test:
+				files: ['spec/**', 'src/**/**.js']
+				tasks: ['karma:unit']
+
+		karma:
+			unit:
+				configFile: 'karma.conf.coffee'
+
 
 	grunt.loadNpmTasks name for name of pkg.dependencies when name[0..5] is 'grunt-'
 
+	# Default
 	grunt.registerTask 'default', ['clean', 'copy:main', 'ngtemplates', 'less', 'uglify', 'cssmin']
+
+	# Dev in another app
 	grunt.registerTask 'oms', ['default', 'copy:oms', 'watch:oms']
+
+	# Test
+	grunt.registerTask 'test', ['karma:unit', 'watch:test']
