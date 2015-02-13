@@ -58,4 +58,13 @@ describe 'Location Search handling', ->
     currentPage = $location.search()['page']
 
     expect(currentPage).to.equal 94
+
+    done()
+
+  it 'setNumItemsPerPage # should set given perPage int number in location hash', (done) ->
+    scope.setNumItemsPerPage 50
+    currentPerPage = $location.search()['per_page']
+
+    expect(currentPerPage).to.equal 50
+
     done()
