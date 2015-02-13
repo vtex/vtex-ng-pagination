@@ -1,25 +1,29 @@
-# Vtex Ng Pagination
+# VTEX ngPagination
 
-A pagination module forn angular.
+Pagination directive for AngularJS.
 
-Requires [node](http://nodejs.org/), [grunt](http://gruntjs.com/) (`npm i -g grunt-cli`) and [bower](http://bower.io/) (`npm install -g bower`).
+## Usage
 
-### Speedstart
+You can find the minified version and sourcemap files inside the `dist` folder. Inject `vtex.ngPagination` angular module and import js/css files.
+
+AngularJS, jQuery and Bootstrap are the only dependencies.
+
+## Development
 
     npm i
     grunt
+    
+Requires [node](http://nodejs.org/) and [grunt](http://gruntjs.com/) (`npm i -g grunt-cli`). 
 
-Have fun! Changes to your coffee, less or html files will reload the page automatically. Nice.
+## Tests
 
-The compiled files can be found in the `/build` folder.
+    grunt test
+
+Check `spec` folder.
 
 ### Folder structure
 
-- `src` - most of your files will be here.
+- `src` - js, html and css for development.
+- `build` - compiled and ready-to-use files.
+- `dist` - minified version (production)
 - `spec` - Unit tests source files.
-- `Gruntfile.coffee` - This is the configuration file for grunt. Contains all the build tasks.
-- `build` - this folder will be created after you run a grunt task.
-
-------
-
-VTEX - 2013
