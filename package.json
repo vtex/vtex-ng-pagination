@@ -5,6 +5,7 @@
   "description": "Bootstrap Pagination plugin for AngularJS",
   "main": "index.html",
   "dependencies": {
+    "chai": "~1.10.0",
     "grunt": "~0.4.1",
     "grunt-angular-templates": "^0.5.7",
     "grunt-contrib-clean": "^0.4.1",
@@ -15,12 +16,12 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-karma": "~0.10.1",
     "karma": "^0.12.31",
-    "karma-coffee-preprocessor": "~0.2.1",
-    "chai": "~1.10.0",
     "karma-chai": "~0.1.0",
-    "mocha": "~2.1.0",
+    "karma-coffee-preprocessor": "~0.2.1",
     "karma-mocha": "~0.1.10",
-    "karma-phantomjs-launcher": "~0.1.4"
+    "karma-ng-html2js-preprocessor": "^0.1.2",
+    "karma-phantomjs-launcher": "~0.1.4",
+    "mocha": "~2.1.0"
   },
   "repository": {
     "type": "git",
