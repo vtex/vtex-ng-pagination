@@ -26,7 +26,8 @@ beforeEach ->
                     page-count="paging.pages"
                     current-page="paging.page"
                     item-count="paging.total"
-                    per-page="paging.perPage"></vt-pagination>'
+                    per-page="paging.perPage"
+                    per-page-options="default"></vt-pagination>'
 
   newDirective = ->
     element = $compile( angular.element element ) $scope

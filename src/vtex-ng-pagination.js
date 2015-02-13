@@ -7,6 +7,7 @@ angular.module('vtex.ngPagination', [])
 				pageCount: "=pageCount",
 				currentPage: "=currentPage",
 				perPage: "=perPage",
+				perPageOptions: "=perPageOptions",
 				useSearch: "=search"
 			},
 			templateUrl: "vtex-ng-pagination.html",
@@ -21,12 +22,15 @@ angular.module('vtex.ngPagination', [])
 				scope.currentPage = scope.currentPage || 1;
 				scope.currentPageDisplay = scope.currentPage || 1;
 
-				scope.perPageOptions = [
-					{ index: 1, num: 15 },  // These are objects because angular might explode
-					{ index: 2, num: 30 },  // when passing a simple array to ng-repeat
-					{ index: 3, num: 50 },
-					{ index: 4, num: 100 }
-				];
+				if (!scope.perPageOptions || scope.perPageOptions.constructor !== Array
+					|| !scope.perPageOptions.length || scope.perPageOptions === 'default') {
+					scope.perPageOptions = [
+						{ index: 1, num: 15 },  // These are objects because angular might explode
+						{ index: 2, num: 30 },  // when passing a simple array to ng-repeat
+						{ index: 3, num: 50 },
+						{ index: 4, num: 100 }
+					];
+				}
 
 				// Watchers
 				scope.$watch('pageCount', function() {
