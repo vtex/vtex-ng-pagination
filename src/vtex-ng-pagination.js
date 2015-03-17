@@ -1,5 +1,5 @@
 angular.module('vtex.ngPagination', [])
-	.directive('vtPagination', ['$location', function($location) {
+	.directive('vtPagination', ['$location', '$parse', function($location, $parse) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -7,7 +7,7 @@ angular.module('vtex.ngPagination', [])
 				pageCount: '=pageCount',
 				currentPage: '=currentPage',
 				perPage: '=perPage',
-				perPageOptions: '=perPageOptions',
+				perPageOptions: '@perPageOptions',
 				useSearch: '=search'
 			},
 			templateUrl: 'vtex-ng-pagination.html',
@@ -21,6 +21,8 @@ angular.module('vtex.ngPagination', [])
 				scope.perPage = scope.perPage || 15;
 				scope.currentPage = scope.currentPage || 1;
 				scope.currentPageDisplay = scope.currentPage || 1;
+
+				scope.perPageOptions = $parse(scope.perPageOptions);
 
 				if (!scope.perPageOptions || scope.perPageOptions.constructor !== Array
 					|| !scope.perPageOptions.length || scope.perPageOptions === 'default') {
