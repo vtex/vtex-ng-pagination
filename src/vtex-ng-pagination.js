@@ -1,21 +1,21 @@
 angular.module('vtex.ngPagination', [])
-	.directive("vtPagination", ['$location', function($location) {
+	.directive('vtPagination', ['$location', function($location) {
 		return {
-			restrict: "E",
+			restrict: 'E',
 			scope: {
-				itemCount: "=itemCount",
-				pageCount: "=pageCount",
-				currentPage: "=currentPage",
-				perPage: "=perPage",
-				perPageOptions: "=perPageOptions",
-				useSearch: "=search"
+				itemCount: '=itemCount',
+				pageCount: '=pageCount',
+				currentPage: '=currentPage',
+				perPage: '=perPage',
+				perPageOptions: '=perPageOptions',
+				useSearch: '=search'
 			},
-			templateUrl: "vtex-ng-pagination.html",
+			templateUrl: 'vtex-ng-pagination.html',
 			link: function (scope) {
 
 				// Disable buttons control
-				scope.disablePrevious = "disabled";
-				scope.disableNext = "";
+				scope.disablePrevious = 'disabled';
+				scope.disableNext = '';
 
 				// Defaults
 				scope.perPage = scope.perPage || 15;
@@ -44,8 +44,8 @@ angular.module('vtex.ngPagination', [])
 
 				// Methods on scope
 				scope.setCurrentPage = function(newValue) {
-					if (!isNaN(newValue)) {
-						if (newValue && (newValue <= 0)){
+					if ( !isNaN(newValue) ) {
+						if (newValue && (newValue <= 0)) {
 							scope.currentPage = 1;
 						} else if (newValue && (newValue > scope.pageCount)) {
 							scope.currentPage = scope.pageCount ? scope.pageCount : 1;
@@ -66,7 +66,7 @@ angular.module('vtex.ngPagination', [])
 
 				scope.pageInputKeyPress = function(evt) {
 					if (evt.charCode == 13) {
-						$(".pagination input").off('blur').blur().on('blur', function(evt) {
+						$('.pagination input').off('blur').blur().on('blur', function(evt) {
 							scope.pageInputBlur(evt);
 							if (!scope.$$phase) {
 								scope.$digest();
@@ -77,14 +77,14 @@ angular.module('vtex.ngPagination', [])
 				};
 
 				scope.verifyBtns = function(newValue) {
-					scope.disablePrevious = (newValue > 1 && newValue <= scope.pageCount) ? "" : "disabled";
-					scope.disableNext = (newValue < scope.pageCount) ? "" : "disabled";
+					scope.disablePrevious = (newValue > 1 && newValue <= scope.pageCount) ? '' : 'disabled';
+					scope.disableNext = (newValue < scope.pageCount) ? '' : 'disabled';
 				};
 
 				scope.changePage = function(direction) {
-					if ((direction === "next") && (scope.currentPage < scope.pageCount)) {
+					if ((direction === 'next') && (scope.currentPage < scope.pageCount)) {
 						scope.currentPage = Math.ceil(Number(scope.currentPage)) + 1;
-					} else if ((direction === "prev") && (scope.currentPage > 1) && (scope.currentPage <= scope.pageCount)) {
+					} else if ((direction === 'prev') && (scope.currentPage > 1) && (scope.currentPage <= scope.pageCount)) {
 						scope.currentPage = Math.ceil(Number(scope.currentPage)) - 1;
 					}
 
@@ -104,14 +104,14 @@ angular.module('vtex.ngPagination', [])
 
 				scope.addHtmlListeners = function() {
 					/* Changes y-orientation of perPage options if on bottom */
-					$("html").on("click", ".dropdown-toggle", function() {
-						var $dropdownToogle = $('.list-control').last().find(".dropdown-toggle");
+					$('html').on('click', '.dropdown-toggle', function() {
+						var $dropdownToogle = $('.list-control').last().find('.dropdown-toggle');
 						var offSetPaginationBottom = $dropdownToogle.offset();
-						if (($("html").height() - offSetPaginationBottom.top) <= 200) {
+						if (($('html').height() - offSetPaginationBottom.top) <= 200) {
 							$dropdownToogle
 								.parent()
-								.removeClass("dropdown")
-								.addClass("dropup");
+								.removeClass('dropdown')
+								.addClass('dropup');
 						}
 					});
 				};
