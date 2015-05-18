@@ -1,6 +1,6 @@
 {
   "name": "vtex-ng-pagination",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "readmeFilename": "README.md",
   "description": "Bootstrap Pagination plugin for AngularJS",
   "main": "index.html",
