@@ -49,7 +49,9 @@
         <li>
           <input
             class="input-mini pull-left"
-            type="text"
+            type="number"
+            min="1"
+            max="{{ maxPage }}"
             ng-model="currentPageDisplay"
             ng-blur="pageInputBlur($event)"
             ng-keypress="pageInputKeyPress($event)"

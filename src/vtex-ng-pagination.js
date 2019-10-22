@@ -11,6 +11,7 @@ angular.module('vtex.ngPagination', []).directive('vtPagination', [
         perPage: '=perPage',
         perPageOptions: '@perPageOptions',
         useSearch: '=search',
+        maxPage: '=maxPage',
       },
       templateUrl: 'vtex-ng-pagination.html',
       link: function(scope) {
@@ -21,7 +22,8 @@ angular.module('vtex.ngPagination', []).directive('vtPagination', [
         // Defaults
         scope.perPage = scope.perPage || 15
         scope.currentPage = scope.currentPage || 1
-        scope.currentPageDisplay = scope.currentPage || 1
+        scope.currentPageDisplay = scope.currentPage
+        scope.maxPage = Math.min(scope.maxPage || 100000, scope.pageCount)
 
         scope.perPageOptions = $parse(scope.perPageOptions)
 
@@ -45,25 +47,22 @@ angular.module('vtex.ngPagination', []).directive('vtPagination', [
         })
 
         scope.$watch('currentPage', function(newValue) {
-          scope.currentPageDisplay = newValue
+          scope.currentPageDisplay = Math.min(newValue, scope.maxPage)
           scope.verifyBtns(scope.currentPageDisplay)
         })
 
         // Methods on scope
         scope.setCurrentPage = function(newValue) {
-          if (!isNaN(newValue)) {
-            if (newValue && newValue <= 0) {
-              scope.currentPage = 1
-            } else if (newValue && newValue > scope.pageCount) {
-              scope.currentPage = scope.pageCount ? scope.pageCount : 1
-            } else if (newValue != scope.currentPage) {
-              scope.currentPage = newValue
-            }
-
-            if (scope.useSearch) {
-              $location.search('page', scope.currentPage)
-            }
+          if (newValue && newValue <= 0) {
+            scope.currentPage = 1
+          } else {
+            scope.currentPage = Math.min(newValue, scope.maxPage)
           }
+
+          if (scope.useSearch) {
+            $location.search('page', scope.currentPage)
+          }
+
           scope.currentPageDisplay = scope.currentPage
         }
 
@@ -89,7 +88,10 @@ angular.module('vtex.ngPagination', []).directive('vtPagination', [
         scope.verifyBtns = function(newValue) {
           scope.disablePrevious =
             newValue > 1 && newValue <= scope.pageCount ? '' : 'disabled'
-          scope.disableNext = newValue < scope.pageCount ? '' : 'disabled'
+          scope.disableNext =
+            newValue < scope.pageCount && newValue < scope.maxPage
+              ? ''
+              : 'disabled'
         }
 
         scope.changePage = function(direction) {
