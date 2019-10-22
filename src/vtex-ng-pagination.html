@@ -1,44 +1,76 @@
 <div class="vt-pagination-container">
-    <div class="list-control list-control-bottom pull-right" ng-show="!hidePagination && !hidePagination || (itemCount > 15)">
-        <ul class="nav nav-pills pull-left">
-            <li class="padding muted"><span translate>pagination.total</span>: <strong>{{ itemCount }}</strong></li>
-            <li class="padding muted vtex-showing"><span translate>pagination.perPage</span>:</li>
-            <li class="dropdown" dropdown>
-                <a class="dropdown-toggle" dropdown-toggle role="button" data-toggle="dropdown" href>
-                    <strong>{{ perPage }}</strong> <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu pagination-menu">
-                    <li>
-                        <a tabindex="-1" ng-click="setNumItemsPerPage(option.num)"
-                           ng-repeat="option in perPageOptions">{{ option.num }}</a>
-                    </li>
-                </ul>
-            </li>
+  <div
+    class="list-control list-control-bottom pull-right"
+    ng-show="!hidePagination && !hidePagination || (itemCount > 15)"
+  >
+    <ul class="nav nav-pills pull-left">
+      <li class="padding muted">
+        <span translate>pagination.total</span>:
+        <strong>{{ itemCount }}</strong>
+      </li>
+      <li class="padding muted vtex-showing">
+        <span translate>pagination.perPage</span>:
+      </li>
+      <li class="dropdown" dropdown>
+        <a
+          class="dropdown-toggle"
+          dropdown-toggle
+          role="button"
+          data-toggle="dropdown"
+          href
+        >
+          <strong>{{ perPage }}</strong> <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu pagination-menu">
+          <li>
+            <a
+              tabindex="-1"
+              ng-click="setNumItemsPerPage(option.num)"
+              ng-repeat="option in perPageOptions"
+              >{{ option.num }}</a
+            >
+          </li>
         </ul>
+      </li>
+    </ul>
 
-        <div class="pagination pull-left">
-            <ul>
-                <li ng-class="disablePrevious">
-                    <a title="Página anterior" ng-click="changePage('prev')"
-                       ga-event ga-label="pagination-previous-page">
-                        <i class="icon-caret-left"></i>
-                    </a>
-                </li>
-                <li>
-                    <input class="input-mini pull-left" type="text"
-                           ng-model="currentPageDisplay"
-                           ng-blur="pageInputBlur($event)"
-                           ng-keypress="pageInputKeyPress($event)"
-                           data-original-title="Página {{ currentPage }} de {{ pageCount }}"
-                           ga-event ga-category="input" ga-action="focus" ga-label="pagination-input">
-                </li>
-                <li ng-class="disableNext">
-                    <a title="Próxima página" ng-click="changePage('next')"
-                       ga-event ga-label="pagination-next-page">
-                        <i class="icon-caret-right"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
+    <div class="pagination pull-left">
+      <ul>
+        <li ng-class="disablePrevious">
+          <a
+            title="Página anterior"
+            ng-click="changePage('prev')"
+            ga-event
+            ga-label="pagination-previous-page"
+          >
+            <i class="icon-caret-left"></i>
+          </a>
+        </li>
+        <li>
+          <input
+            class="input-mini pull-left"
+            type="text"
+            ng-model="currentPageDisplay"
+            ng-blur="pageInputBlur($event)"
+            ng-keypress="pageInputKeyPress($event)"
+            data-original-title="Página {{ currentPage }} de {{ pageCount }}"
+            ga-event
+            ga-category="input"
+            ga-action="focus"
+            ga-label="pagination-input"
+          />
+        </li>
+        <li ng-class="disableNext">
+          <a
+            title="Próxima página"
+            ng-click="changePage('next')"
+            ga-event
+            ga-label="pagination-next-page"
+          >
+            <i class="icon-caret-right"></i>
+          </a>
+        </li>
+      </ul>
     </div>
+  </div>
 </div>
